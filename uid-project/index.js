@@ -7,7 +7,8 @@ const path = require('path');
 app.use(express.json());
 
 const userRoutes = require('./server/routes/user');
-const postRoutes = require('./server/routes/post'); // Added this line
+const postRoutes = require('./server/routes/post');
+const groupRoutes = require('./server/routes/group');
 
 mongoose.connect(process.env.DBURL)
     .then(console.log('Connected to MongoDB...'))
@@ -24,7 +25,8 @@ app.use(express.static(__dirname + '/public'));
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, '/public', 'index.html')));
 
 app.use('/user', userRoutes);
-app.use('/post', postRoutes); // Added this line
+app.use('/post', postRoutes);
+app.use('/group', groupRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
