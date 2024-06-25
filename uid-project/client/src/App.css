@@ -7,10 +7,23 @@
   pointer-events: none;
 }
 
+.text-dark-navy {
+  color: #343a40 !important; /* This is a dark navy color */
+}
+
+.bg-dark-navy {
+  background-color: #343a40 !important; /* This is a dark navy color */
+  color: white !important; /* This is to ensure the text on the button is visible */
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+
+.login-container {
+  background-color: rgba(0, 0, 0, .15);
 }
 
 .App-header {
@@ -26,6 +39,11 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.login-div {
+  width: 300px; /* Adjust as needed */
+  height: 300px; /* Adjust as needed */
 }
 
 @keyframes App-logo-spin {
