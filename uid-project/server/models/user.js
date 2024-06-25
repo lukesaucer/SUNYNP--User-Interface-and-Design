@@ -1,6 +1,6 @@
 // 1. Import mongoose
 const mongoose = require('mongoose');
-
+const bcrypt = require('bcryptjs');
 //2. Create the schema
 const userSchema = new mongoose.Schema({
     username: {
@@ -35,9 +35,12 @@ async function register(username, password) {
     const user = getUser(username);
     if(user) throw Error('User already exists');
 
+    const salt = await bcrypt.genSalt(10);
+    const hashed = await bcrypt.hash(password, salt);
+
     const newUser = await User.create({
         username: username,
-        password: password
+        password: hashed
     });
 
     return newUser;
@@ -47,9 +50,13 @@ async function register(username, password) {
     async function login(username, password) {
         const user = await getUser(username);
         if(!user) throw Error('User not found');
-        if(user.password != password) throw Error('Invalid password');
 
-        return user;
+        const isMatch = await bcrypt.compare(password, user.password);
+        if(!isMatch) throw Error('Invalid Password');
+
+        if(user.password != password) throw Error('Invalid Password');
+
+        return user._doc;
     }
 
 // UPDATE a user
