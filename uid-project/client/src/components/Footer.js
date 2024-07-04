@@ -1,11 +1,11 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
 
-export const NavBar = () => {
+export const Footer = () => {
     const location = useLocation();
 
     return (
         <div>
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark p-4">
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark p-4 d-flex flex-column align-items-center justify-content-center">
                 <Link className="navbar-brand" to="/">UIP Social Media Website</Link>
                 <button className="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
@@ -13,7 +13,7 @@ export const NavBar = () => {
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div className="navbar-nav pl-2">
+                    <div className="navbar-nav d-flex justify-content-center">
                         <Link className="nav-item nav-link" to="/profile">Profile <span className="sr-only">(current)</span></Link>
                         {location.pathname !== '/profile' && (
                             <>
@@ -30,4 +30,4 @@ export const NavBar = () => {
     );
 }
 
-export default NavBar;
+export default Footer;

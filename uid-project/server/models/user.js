@@ -43,7 +43,7 @@ async function register(username, password) {
         password: hashed
     });
 
-    return newUser;
+    return newUser._doc;
 }
 
 // READ a user
@@ -54,21 +54,21 @@ async function register(username, password) {
         const isMatch = await bcrypt.compare(password, user.password);
         if(!isMatch) throw Error('Invalid Password');
 
-        if(user.password != password) throw Error('Invalid Password');
+        if(user.password !== password) throw Error('Invalid Password');
 
         return user._doc;
     }
 
 // UPDATE a user
     async function updatePassword(id, password) {
-        const user = await User.findByIdAndUpdate({"_id": id}, {$set: {"password": password}});
+        const user = await User.updateOne({"_id": id}, {$set: {"password": password}});
         return user;
     }
 
     // DELETE a user
     async function deleteUser(id) {
         await User.deleteOne({"_id": id});
-    };
+    }
 // Utility functions
     async function getUser(username) {
         return await User.findOne({ "username": username });
